@@ -6,6 +6,7 @@ import zope.interface
 import hmac
 import hashlib
 import base64
+import time
 from datetime import datetime
 
 from certbot import errors
@@ -94,14 +95,14 @@ class _WebsupportClient(object):
         }
 
         logger.debug('Attempting to add record to zone %s: %s', zone_id, data)
-        response = send_request('POST', '/v1/user/self/zone/{0}/record'.format(domain), data)
+        response = self._send_request('POST', '/v1/user/self/zone/{0}/record'.format(domain), data)
 
-        if response.status_code != 200:
-            raise errors.PluginError('Error communicating with Websupport API: {0}'format(response.status_code))
+        if response.status_code != 200 and response.status != 201:
+            raise errors.PluginError('Error communicating with Websupport API: {0}'.format(response.status_code))
 
         response_json = response.json()
         if response_json['status'] == 'error':
-            raise errors.PluginError('Error communicating with Websupport API: {0} - {1}'.format(response['errors']['name'][0], response['errors']['content'][0])
+            raise errors.PluginError('Error communicating with Websupport API: {0} - {1}'.format(response['errors']['name'][0], response['errors']['content'][0]))
 
         record_id = response_json['item']['id']
         logger.debug('Successfully added TXT record with record_id: %s', record_id)
@@ -131,7 +132,7 @@ class _WebsupportClient(object):
         if zone_id:
             record_id = self._find_txt_record_id(zone_id, name, record_content)
             if record_id:
-                response = self._send_request('DELETE', '/v1/user/self/zone/{0}/record/{1}'.format(zone_id, record_id)))
+                response = self._send_request('DELETE', '/v1/user/self/zone/{0}/record/{1}'.format(zone_id, record_id))
                 if response.status_code == 200:
                     logger.debug('Successfully deleted TXT record.')
                 else:
@@ -159,10 +160,10 @@ class _WebsupportClient(object):
 
         if response.status_code == 200:
             return zone_id
-        else response.status_code == 401 or response.status_code == 403:
+        elif response.status_code == 401 or response.status_code == 403:
             raise errors.PluginError('Error determining zone_id: {0} {1}. Please confirm that '
                                         'you have supplied valid Websupport API credentials.'
-                                        .format(code, e)
+                                        .format(code, e))
         else:
             raise errors.PluginError('Unable to determine zone_id for {0}. '
                                     'Please confirm that the domain name has been entered correctly '
@@ -180,7 +181,7 @@ class _WebsupportClient(object):
         :rtype: str
         """
 
-        response = self._send_request('GET', '/v1/user/self/zone/{0}/record'.format(zone_id, page))
+        response = self._send_request('GET', '/v1/user/self/zone/{0}/record'.format(zone_id))
 
         if response.status_code == 404:
             logger.debug('Unable to find TXT record.')
@@ -195,17 +196,17 @@ class _WebsupportClient(object):
             return None
 
 
-    def _send_request(method, path, data=None):
+    def _send_request(self, method, path, data=None):
         timestamp = int(time.time())
         canonical_request = "%s %s %s" % (method, path, timestamp)
-        signature = hmac.new(SECRET, canonical_request.encode('utf-8'), hashlib.sha1).hexdigest()
+        signature = hmac.new(self.api_secret, canonical_request.encode('utf-8'), hashlib.sha1).hexdigest()
 
         headers = {
-            "Authorization": "Basic %s" % (base64.b64encode("%s:%s" % (API_KEY, signature))),
+            "Authorization": "Basic %s" % (base64.b64encode("%s:%s" % (self.api_key, signature))),
             "Content-Type": "application/json",
             "Accept": "application/json",
             "Date": datetime.fromtimestamp(timestamp).isoformat()
         }
 
-        return requests.request(method, '%s%s' % (ENDPOINT, path), headers=headers, json=data)
+        return requests.request(method, '%s%s' % (API_ENDPOINT, path), headers=headers, json=data)
 

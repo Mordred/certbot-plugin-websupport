@@ -9,7 +9,7 @@ version = '0.38.0'
 install_requires = [
     'acme>=0.29.0',
     'certbot>=0.34.0',
-    'requests>2.22.0',
+    'requests',
     'mock',
     'setuptools',
     'zope.interface',
@@ -25,7 +25,7 @@ setup(
     version=version,
     description="Websupport DNS Authenticator plugin for Certbot",
     url='https://github.com/Mordred/certbot-dns-websupport',
-    author="Martin Jantošovič",
+    author="Martin Jantosovic",
     author_email='jantosovic.martin@gmail.com',
     license='Apache License 2.0',
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
