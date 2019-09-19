@@ -21,10 +21,10 @@ docs_extras = [
 ]
 
 setup(
-    name='certbot-dns-websupport',
+    name='certbot-plugin-websupport',
     version=version,
     description="Websupport DNS Authenticator plugin for Certbot",
-    url='https://github.com/Mordred/certbot-dns-websupport',
+    url='https://github.com/Mordred/certbot-plugin-websupport',
     author="Martin Jantosovic",
     author_email='jantosovic.martin@gmail.com',
     license='Apache License 2.0',
@@ -59,7 +59,7 @@ setup(
     },
     entry_points={
         'certbot.plugins': [
-            'dns-websupport = certbot_dns_websupport.dns_websupport:Authenticator',
+            'dns = certbot_plugin_websupport.dns:Authenticator',
         ],
     },
 )
