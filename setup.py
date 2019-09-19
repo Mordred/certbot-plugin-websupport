@@ -10,11 +10,8 @@ version = '0.1.0'
 # Remember to update local-oldest-requirements.txt when changing the minimum
 # acme/certbot version.
 install_requires = [
-    'acme>=0.29.0',
     'certbot>=0.38.0',
     'requests',
-    'mock',
-    'setuptools',
     'zope.interface',
 ]
 
@@ -32,13 +29,13 @@ setup(
     url='https://github.com/Mordred/certbot-plugin-websupport',
     author="Martin Jantosovic",
     author_email='jantosovic.martin@gmail.com',
-    license='Apache License 2.0',
+    license='MIT',
     python_requires='>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Plugins',
         'Intended Audience :: System Administrators',
-        'License :: OSI Approved :: Apache Software License',
+        'License :: OSI Approved :: MIT License',
         'Operating System :: POSIX :: Linux',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2',
