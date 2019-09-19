@@ -2,13 +2,16 @@ from setuptools import setup
 from setuptools import find_packages
 
 
-version = '0.38.0'
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+version = '0.1.0'
 
 # Remember to update local-oldest-requirements.txt when changing the minimum
 # acme/certbot version.
 install_requires = [
     'acme>=0.29.0',
-    'certbot>=0.34.0',
+    'certbot>=0.38.0',
     'requests',
     'mock',
     'setuptools',
@@ -24,6 +27,7 @@ setup(
     name='certbot-plugin-websupport',
     version=version,
     description="Websupport DNS Authenticator plugin for Certbot",
+    long_description=long_description,
     url='https://github.com/Mordred/certbot-plugin-websupport',
     author="Martin Jantosovic",
     author_email='jantosovic.martin@gmail.com',
