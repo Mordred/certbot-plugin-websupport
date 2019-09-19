@@ -28,6 +28,7 @@ setup(
     version=version,
     description="Websupport DNS Authenticator plugin for Certbot",
     long_description=long_description,
+    long_description_content_type="text/markdown",
     url='https://github.com/Mordred/certbot-plugin-websupport',
     author="Martin Jantosovic",
     author_email='jantosovic.martin@gmail.com',
