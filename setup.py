@@ -5,7 +5,7 @@ from setuptools import find_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-version = '0.1.0'
+version = '0.1.1'
 
 # Remember to update local-oldest-requirements.txt when changing the minimum
 # acme/certbot version.
