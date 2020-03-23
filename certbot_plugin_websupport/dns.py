@@ -95,7 +95,7 @@ class _WebsupportClient(object):
         }
 
         logger.debug('Attempting to add record to zone %s: %s', zone_id, data)
-        response = self._send_request('POST', '/v1/user/self/zone/{0}/record'.format(domain), data)
+        response = self._send_request('POST', '/v1/user/self/zone/{0}/record'.format(zone_id), data)
 
         if response.status_code != 200 and response.status_code != 201:
             raise errors.PluginError('Error communicating with Websupport API: {0}'.format(response.status_code))
