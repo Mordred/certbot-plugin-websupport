@@ -202,7 +202,7 @@ class _WebsupportClient(object):
         signature = hmac.new(self.api_secret.encode('utf-8'), canonical_request.encode('utf-8'), hashlib.sha1).hexdigest()
 
         headers = {
-            "Authorization": "Basic %s" % (base64.b64encode("%s:%s" % (self.api_key, signature))),
+            "Authorization": "Basic {0}".format(base64.b64encode("{0}:{1}".format(self.api_key, signature).encode('utf-8')).decode('utf-8')),
             "Content-Type": "application/json",
             "Accept": "application/json",
             "Date": datetime.fromtimestamp(timestamp).isoformat()
