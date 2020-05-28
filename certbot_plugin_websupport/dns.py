@@ -199,7 +199,7 @@ class _WebsupportClient(object):
     def _send_request(self, method, path, data=None):
         timestamp = int(time.time())
         canonical_request = "%s %s %s" % (method, path, timestamp)
-        signature = hmac.new(self.api_secret, canonical_request.encode('utf-8'), hashlib.sha1).hexdigest()
+        signature = hmac.new(self.api_secret.encode('utf-8'), canonical_request.encode('utf-8'), hashlib.sha1).hexdigest()
 
         headers = {
             "Authorization": "Basic %s" % (base64.b64encode("%s:%s" % (self.api_key, signature))),
