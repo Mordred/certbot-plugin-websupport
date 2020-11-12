@@ -11,8 +11,8 @@ customers to prove control of a domain name.
 
 3. Create a `websupport.ini` config file with the following contents and apply `chmod 600 websupport.ini` on it:
    ```
-   certbot-plugin-websupport:dns_api_key = APIKEY
-   certbot-plugin-websupport:dns_api_secret = SECRET
+   certbot_plugin_websupport:dns_api_key = APIKEY
+   certbot_plugin_websupport:dns_api_secret = SECRET
    ```
    Replace `APIKEY` with your Websupport API key, `SECRET` with your API secret and ensure permissions are set
    to disallow access to other users.
