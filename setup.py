@@ -62,6 +62,7 @@ setup(
     entry_points={
         'certbot.plugins': [
             'dns = certbot_plugin_websupport.dns:Authenticator',
+            'dns-websupport = certbot_plugin_websupport.dns:Authenticator',
         ],
     },
 )
