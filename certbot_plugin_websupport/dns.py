@@ -161,9 +161,9 @@ class _WebsupportClient(object):
         if response.status_code == 200:
             return zone_id
         elif response.status_code == 401 or response.status_code == 403:
-            raise errors.PluginError('Error determining zone_id: {0} {1}. Please confirm that '
+            raise errors.PluginError('Error determining zone_id: {0}. Please confirm that '
                                         'you have supplied valid Websupport API credentials.'
-                                        .format(code, e))
+                                        .format(response.status_code))
         else:
             raise errors.PluginError('Unable to determine zone_id for {0}. '
                                     'Please confirm that the domain name has been entered correctly '
