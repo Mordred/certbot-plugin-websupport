@@ -7,7 +7,7 @@ import hmac
 import hashlib
 import base64
 import time
-from datetime import datetime
+from datetime import datetime, timezone
 
 from certbot import errors
 from certbot import interfaces
@@ -205,7 +205,7 @@ class _WebsupportClient(object):
             "Authorization": "Basic {0}".format(base64.b64encode("{0}:{1}".format(self.api_key, signature).encode('utf-8')).decode('utf-8')),
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "Date": datetime.fromtimestamp(timestamp).isoformat()
+            "Date": datetime.fromtimestamp(timestamp, timezone.utc).isoformat()
         }
 
         return requests.request(method, '%s%s' % (API_ENDPOINT, path), headers=headers, json=data)
