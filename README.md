@@ -11,8 +11,8 @@ customers to prove control of a domain name.
 
 3. Create a `websupport.ini` config file with the following contents and apply `chmod 600 websupport.ini` on it:
    ```
-   certbot_plugin_websupport:dns_api_key = APIKEY
-   certbot_plugin_websupport:dns_api_secret = SECRET
+   dns_websupport_api_key = APIKEY
+   dns_websupport_api_secret = SECRET
    ```
    Replace `APIKEY` with your Websupport API key, `SECRET` with your API secret and ensure permissions are set
    to disallow access to other users.
@@ -20,7 +20,7 @@ customers to prove control of a domain name.
 4. Run `certbot` and direct it to use the plugin for authentication and to use
    the config file previously created:
    ```
-   certbot certonly -a certbot-plugin-websupport:dns --certbot-plugin-websupport:dns-credentials websupport.ini -d domain.com
+   certbot certonly -a dns-websupport --dns-websupport-credentials websupport.ini -d domain.com
    ```
    Add additional options as required to specify an installation plugin etc.
 
@@ -39,7 +39,7 @@ pip install certbot-plugin-websupport --upgrade
 This plugin is particularly useful when you need to obtain a wildcard certificate using dns challenges:
 
 ```
-certbot certonly -a certbot-plugin-websupport:dns --certbot-plugin-websupport:dns-credentials websupport.ini -d domain.com -d \*.domain.com --server https://acme-v02.api.letsencrypt.org/directory
+certbot certonly -a dns-websupport --dns-websupport-credentials websupport.ini -d domain.com -d \*.domain.com
 ```
 
 ## Automatic renewal
@@ -47,5 +47,5 @@ certbot certonly -a certbot-plugin-websupport:dns --certbot-plugin-websupport:dn
 You can setup automatic renewal using `crontab` with the following job for weekly renewal attempts:
 
 ```
-0 0 * * 0 certbot renew -q -a certbot-plugin-websupport:dns --certbot-plugin-websupport:dns-credentials /etc/letsencrypt/websupport/websupport.ini --server https://acme-v02.api.letsencrypt.org/directory
+0 0 * * 0 certbot renew -q -a dns-websupport --dns-websupport-credentials /etc/letsencrypt/websupport.ini
 ```
