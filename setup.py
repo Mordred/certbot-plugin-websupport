@@ -5,7 +5,7 @@ from setuptools import find_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
-version = '0.1.5'
+version = '0.2.0'
 
 # Remember to update local-oldest-requirements.txt when changing the minimum
 # acme/certbot version.
@@ -13,8 +13,6 @@ install_requires = [
     'certbot>=0.38.0',
     'requests',
     'setuptools',
-    'mock',
-    'requests-mock',
     'zope.interface',
 ]
 
