@@ -49,3 +49,47 @@ You can setup automatic renewal using `crontab` with the following job for weekl
 ```
 0 0 * * 0 certbot renew -q -a dns-websupport --dns-websupport-credentials /etc/letsencrypt/websupport.ini
 ```
+
+## Docker
+
+You can use `Dockerfile` to build a image:
+
+```Dockerfile
+FROM certbot/certbot
+RUN pip3 install certbot-plugin-websupport
+```
+
+E.g:
+
+```bash
+docker build -t certbot/dns-websupport .
+```
+
+Then you can generate certificate using:
+
+```bash
+docker run -it --rm \
+    -v /var/lib/letsencrypt:/var/lib/letsencrypt \
+    -v /etc/letsencrypt:/etc/letsencrypt \
+    certbot/dns-websupport \
+    certonly \
+    --authenticator dns-websupport \
+    --dns-websupport-credentials "/etc/letsencrypt/.secrets/credentials.ini" \
+    --email full.name@example.com \
+    --agree-tos \
+    --non-interactive \
+    --rsa-key-size 4096 \
+    -d *.example.com
+```
+
+And renewal:
+
+```bash
+docker run -it --rm \
+    -v /var/lib/letsencrypt:/var/lib/letsencrypt \
+    -v /etc/letsencrypt:/etc/letsencrypt \
+    certbot/dns-websupport \
+    certonly renew \
+    --authenticator dns-websupport \
+    --dns-websupport-credentials "/etc/letsencrypt/.secrets/credentials.ini"
+```
