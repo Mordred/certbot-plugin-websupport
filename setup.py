@@ -12,6 +12,9 @@ version = '0.1.5'
 install_requires = [
     'certbot>=0.38.0',
     'requests',
+    'setuptools',
+    'mock',
+    'requests-mock',
     'zope.interface',
 ]
 
@@ -45,6 +48,11 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Security',
         'Topic :: System :: Installation/Setup',

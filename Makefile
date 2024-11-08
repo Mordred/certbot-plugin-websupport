@@ -15,3 +15,5 @@ build: cleanup
 upload:
 	twine upload dist/*
 
+test:
+	python -m pytest
