@@ -27,18 +27,18 @@ class AuthenticatorTest(
         path = os.path.join(self.tempdir, "websupport.ini")
         dns_test_common.write(
             {
-                "websupport_api_key": FAKE_API_KEY,
-                "websupport_api_secret": FAKE_API_SECRET,
+                "dns_websupport_api_key": FAKE_API_KEY,
+                "dns_websupport_api_secret": FAKE_API_SECRET,
             },
             path,
         )
 
         super(AuthenticatorTest, self).setUp()
         self.config = mock.MagicMock(
-            websupport_credentials=path, websupport_propagation_seconds=0
+            dns_websupport_credentials=path, dns_websupport_propagation_seconds=0
         )  # don't wait during tests
 
-        self.auth = Authenticator(self.config, "websupport")
+        self.auth = Authenticator(self.config, "dns-websupport")
 
         self.mock_client = mock.MagicMock()
         # _get_ispconfig_client | pylint: disable=protected-access
