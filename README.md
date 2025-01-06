@@ -5,7 +5,7 @@ customers to prove control of a domain name.
 
 ## Usage
 
-1. Obtain an API key and API secret (see [Account Page](https://admin.websupport.sk/sk/auth/apiKey))
+1. Obtain an API key and API secret (see [Account Page](https://admin.websupport.sk/sk/auth/security-settings))
 
 2. Install the plugin using `pip install certbot-plugin-websupport`
 
